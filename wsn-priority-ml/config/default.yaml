@@ -1,0 +1,53 @@
+env:
+  n_nodes:   100
+  area_size: 500.0        # metres
+  tx_radius: 75.0         # transmission radius (metres)
+  max_steps: 300          # steps per RL episode
+  n_hotspots: 5           # enemy activity concentration points
+
+  # Reward weights
+  alpha: 0.40             # critical-zone coverage
+  beta:  0.30             # energy efficiency
+  gamma: 0.20             # network lifetime
+  delta: 0.10             # priority bonus
+
+agent:
+  hidden_dim:  256
+  lr:          0.0001
+  gamma:       0.99
+  tau:         0.005
+  buffer_size: 10000
+  batch_size:  64
+  eps_start:   1.0
+  eps_end:     0.01
+  eps_decay:   50000
+
+training:
+  episodes:       400
+  log_every:      10
+  save_every:     50
+  update_every:   4
+  checkpoint_dir: checkpoints/
+
+zone_classifier:
+  n_training_maps: 10
+  epochs:          80
+  hidden_dim:      32
+
+federated:
+  local_epochs:    5
+  min_nodes_pct:   0.7
+  comm_rounds:     50
+
+simulation:
+  max_rounds:   500
+  fed_rounds:   5         # federated rounds per simulation step
+  active_cost:  0.005     # energy per active round
+  migration_speed: 10.0   # metres per round
+
+hibernation:
+  wake_threshold: 0.55    # neighbour activity to wake a sleeping node
+
+output:
+  results_dir:    data/results/
+  checkpoint_dir: checkpoints/
